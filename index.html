@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>二十四节气养生食谱 | 24 Solar Terms Wellness Recipes</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;background:linear-gradient(135deg,#f5f7fa 0%,#e8f0e8 100%);color:#222;min-height:100vh}
+  .wrap{max-width:520px;margin:0 auto;padding:20px 16px 60px}
+  header{text-align:center;margin-bottom:18px}
+  header h1{font-size:24px;color:#2d5a27;margin-bottom:6px;line-height:1.5}
+  header h1 .subtitle{font-size:14px;color:#888;font-weight:400;letter-spacing:.5px}
+  .intro{background:#fff;border-radius:14px;padding:18px 20px;margin-bottom:18px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.04)}
+  .intro p{font-size:13px;color:#555;line-height:1.9}
+  .hero{background:#fff;border-radius:16px;padding:22px 18px;text-align:center;box-shadow:0 4px 20px rgba(0,0,0,.06);margin-bottom:18px}
+  .hero .icon{font-size:48px;margin-bottom:8px}
+  .hero h2{font-size:18px;color:#2d5a27;margin-bottom:12px}
+  .btn{display:inline-block;width:100%;padding:16px 20px;margin-top:16px;border:none;border-radius:12px;font-size:17px;font-weight:600;cursor:pointer;text-decoration:none;text-align:center;transition:transform .1s}
+  .btn:active{transform:scale(.98)}
+  .btn-primary{background:linear-gradient(135deg,#4caf50,#2d8a30);color:#fff;box-shadow:0 4px 14px rgba(76,175,80,.4)}
+  .btn-tel{background:#007aff;color:#fff;margin-top:10px;box-shadow:0 4px 14px rgba(0,122,255,.35)}
+  .device-tip{font-size:12px;color:#999;margin-top:10px;line-height:1.6}
+  .section{background:#fff;border-radius:14px;padding:16px;margin-bottom:14px;box-shadow:0 2px 10px rgba(0,0,0,.04)}
+  .section h3{font-size:15px;color:#2d5a27;margin-bottom:10px;border-left:4px solid #4caf50;padding-left:8px}
+  .section p{font-size:13px;color:#555;line-height:1.8}
+  .tip-box{background:#fffbe6;border:1px solid #ffe58f;border-radius:10px;padding:14px 16px;margin-bottom:14px;font-size:13px;color:#8a6d3b;line-height:1.8;text-align:left}
+  .tip-box .label{font-weight:700;font-size:14px;margin-bottom:6px;display:block;color:#d48806}
+  .tip-box-blue{background:#e8f4fd;border:1px solid #90caf9;border-radius:10px;padding:14px 16px;margin-top:14px;font-size:13px;color:#1565c0;line-height:1.8;text-align:left}
+  .tip-box-blue .label{font-weight:700;font-size:14px;margin-bottom:6px;display:block}
+  .disclaimer{background:#fafafa;border:1px solid #e8e8e8;border-radius:12px;padding:16px 18px;margin-bottom:14px;font-size:13px;color:#555;line-height:1.8}
+  .disclaimer h3{font-size:14px;color:#8b6914;margin-bottom:10px;text-align:center}
+  .disclaimer .en{font-size:12px;color:#888;margin-top:10px;padding-top:10px;border-top:1px solid #eee;font-style:italic}
+  .footer{text-align:center;font-size:11px;color:#bbb;margin-top:20px}
+  .toast{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%) scale(.8);background:rgba(0,0,0,.78);color:#fff;padding:16px 24px;border-radius:12px;font-size:15px;text-align:center;opacity:0;pointer-events:none;transition:all .25s;z-index:99}
+  .toast.show{opacity:1;transform:translate(-50%,-50%) scale(1)}
+  .wx-tip{background:#e3f2fd;color:#1565c0;font-size:12px;padding:8px 12px;border-radius:8px;margin-top:12px;line-height:1.6}
+  .wx-tip .dots{font-weight:700;font-size:14px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>二十四节气养生食谱<br><span class="subtitle">24 Solar Terms Wellness Recipes</span></h1>
+  </header>
+
+  <div class="intro">
+    <p>
+      这是一个关于中国24节气养生食谱的日历。通过点按下方免费订阅链接，即可将每年自动更新的节气食谱安全添加到 iPhone 或安卓设备的日历中。<br><br>
+      纯文字日历 · 无病毒无广告无跟踪。文件格式为通用的 .ics 日历标准，与手机自带日历 App 原生兼容，请放心点击。
+    </p>
+  </div>
+
+  <div class="hero">
+    <div class="icon">📅</div>
+    <h2>一键订阅到手机日历</h2>
+    <a class="btn btn-primary" id="btnImport" href="webcal://Monkeyust.github.io/24-Solar-Terms-Recipes/solarterms_recipe.ics">📲 一键订阅到日历</a>
+    <div class="device-tip" id="deviceTip"></div>
+
+    <div class="wx-tip" id="wxTip" style="display:none">
+      <span class="dots">⋮⋮⋮</span><br>
+      微信内打开？点右上角「…」→ 选择「在 Safari 中打开」→ 再点上方绿色按钮即可订阅
+    </div>
+
+    <div class="tip-box" style="margin-top:14px">
+      <span class="label">⚠️ 订阅时请选择独立日历</span>
+      弹窗中请确认日历名为 <b>「24节气养生食谱」</b>。若列表中没有，请点日历名称 → 选「新建日历」→ 输入「24节气养生食谱」→ 完成。<br><br>
+      这样删除时只需关掉该订阅即可<b>一键清空</b>，不会混入工作或其他日历。
+    </div>
+
+    <div class="tip-box-blue">
+      <span class="label">📌 操作步骤</span>
+      <b>iPhone：</b>点上方绿色按钮 → 系统弹出订阅确认框 → 确认日历名为「24节气养生食谱」→ 订阅 → 完成。<br><br>
+      <b>安卓：</b>部分机型支持直接订阅，若未自动识别，请点下方下载按钮 → 用「Google 日历」打开导入。
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>没弹窗？点这里下载 .ics 文件</h3>
+    <p style="margin-bottom:12px">若按钮无反应或系统未自动识别，可下载文件后手动导入：</p>
+    <p style="margin-bottom:6px">• <b>iPhone：</b>下载后在「文件」App 中找到 .ics → 点开 → 选「24节气养生食谱」日历 → 添加全部</p>
+    <p style="margin-bottom:14px">• <b>安卓：</b>下载后用「Google 日历」打开 → 导入</p>
+    <a class="btn btn-tel" id="btnTel" href="#">📥 下载 .ics 文件</a>
+  </div>
+
+  <div class="disclaimer">
+    <h3>关于这份食谱</h3>
+    <p>这不是一份医学指南，也不承诺任何健康功效。</p>
+    <p>它只是一个关于"什么时候吃什么"的传统注脚——提醒我们在每个节气里，顺着天时好好吃顿饭。至于吃不吃、怎么做，全凭你当下的心情和胃口。</p>
+    <p style="margin-top:8px"><b>本内容保留所有权利，未经授权请勿修改或商用。愿四时食事，皆得自在。</b></p>
+    <div class="en">
+      This is not a medical guide, nor does it promise any health benefits.<br>
+      It is merely a traditional footnote on "what to eat and when"—a gentle reminder to sit down and have a proper meal in tune with the seasons. Whether you follow it, adapt it, or skip it entirely, that's entirely up to you and your appetite.<br>
+      All rights reserved. Modification or commercial use without permission is prohibited. May every seasonal meal bring you ease and delight.
+    </div>
+  </div>
+
+  <div class="footer">本日历仅含食谱文字，无跟踪无广告 · 可放心分享给家人</div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+var ua=navigator.userAgent||"";
+var isiOS=/(iPhone|iPad|iPod)/i.test(ua);
+var isAndroid=/Android/i.test(ua);
+var isWeChat=/MicroMessenger/i.test(ua);
+
+// 自动替换 webcal 链接中的 YOUR_USERNAME 为实际值
+// 从当前页面 URL 推断 GitHub 用户名和仓库路径
+(function(){
+  var scripts=document.getElementsByTagName('a');
+  for(var i=0;i<scripts.length;i++){
+    if(scripts[i].href.indexOf('YOUR_USERNAME')>-1){
+      // 尝试从 README 或页面中获取，这里留占位让用户手动改
+    }
+  }
+})();
+
+var tip=document.getElementById("deviceTip");
+var wxTip=document.getElementById("wxTip");
+
+if(isWeChat){
+  wxTip.style.display="block";
+}
+
+if(isiOS){
+  tip.innerHTML="检测到 iPhone/iPad · 点按钮将自动弹出日历订阅确认框";
+  document.getElementById("btnImport").innerHTML="🍎 一键订阅到 iPhone 日历";
+}else if(isAndroid){
+  tip.innerHTML="检测到安卓 · 点按钮尝试订阅，若失败请下载后导入";
+  document.getElementById("btnImport").innerHTML="🤖 订阅或下载到安卓日历";
+}else{
+  tip.innerHTML="建议用手机浏览器打开本页";
+}
+
+var toast=document.getElementById("toast");
+function showToast(msg){toast.innerHTML=msg;toast.classList.add("show");setTimeout(function(){toast.classList.remove("show")},2500)}
+
+document.getElementById("btnImport").addEventListener("click",function(e){
+  // iOS 上 webcal:// 链接需要让系统原生处理，不阻止
+  if(isiOS && !isWeChat) return; // 让浏览器原生跳转 webcal://
+  e.preventDefault();
+  if(isWeChat){
+    showToast("请点右上角「…」<br>选择在浏览器中打开");
+    return;
+  }
+  // 非 iOS 设备，下载 .ics 作为备用
+  var a=document.createElement("a");
+  a.href="solarterms_recipe.ics";a.download="24节气养生食谱.ics";
+  document.body.appendChild(a);a.click();document.body.removeChild(a);
+  showToast("文件已下载<br>请用日历 App 打开导入");
+});
+
+document.getElementById("btnTel").addEventListener("click",function(e){
+  e.preventDefault();
+  showToast("正在准备文件…");
+  fetch("solarterms_recipe.ics").then(function(r){return r.blob()}).then(function(blob){
+    var url=URL.createObjectURL(blob);
+    var a=document.createElement("a");a.href=url;a.download="24节气养生食谱.ics";
+    document.body.appendChild(a);a.click();document.body.removeChild(a);
+    setTimeout(function(){URL.revokeObjectURL(url)},3000);
+    showToast("✅ 文件已准备好<br>请到下载目录用日历打开");
+  }).catch(function(){showToast("❌ 读取失败")});
+});
+</script>
+</body>
+</html>
