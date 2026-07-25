@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>24节气养生食谱日历</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;background:linear-gradient(135deg,#f5f7fa 0%,#e8f0e8 100%);color:#222;min-height:100vh}
+  .wrap{max-width:520px;margin:0 auto;padding:20px 16px 60px}
+  header{text-align:center;margin-bottom:18px}
+  header h1{font-size:24px;color:#2d5a27;margin-bottom:6px}
+  header p{font-size:13px;color:#666}
+  .hero{background:#fff;border-radius:16px;padding:22px 18px;text-align:center;box-shadow:0 4px 20px rgba(0,0,0,.06);margin-bottom:18px}
+  .hero .icon{font-size:48px;margin-bottom:8px}
+  .hero h2{font-size:18px;color:#2d5a27;margin-bottom:8px}
+  .hero p{font-size:13px;color:#666;line-height:1.7}
+  .btn{display:inline-block;width:100%;padding:16px 20px;margin-top:14px;border:none;border-radius:12px;font-size:17px;font-weight:600;cursor:pointer;text-decoration:none;text-align:center;transition:transform .1s}
+  .btn:active{transform:scale(.98)}
+  .btn-primary{background:linear-gradient(135deg,#4caf50,#2d8a30);color:#fff;box-shadow:0 4px 14px rgba(76,175,80,.4)}
+  .btn-sub{background:#fff;color:#2d5a27;border:2px solid #4caf50;margin-top:10px}
+  .btn-tel{background:#007aff;color:#fff;margin-top:10px;box-shadow:0 4px 14px rgba(0,122,255,.35)}
+  .device-tip{font-size:12px;color:#999;margin-top:10px;line-height:1.6}
+  .section{background:#fff;border-radius:14px;padding:16px;margin-bottom:14px;box-shadow:0 2px 10px rgba(0,0,0,.04)}
+  .section h3{font-size:15px;color:#2d5a27;margin-bottom:10px;border-left:4px solid #4caf50;padding-left:8px}
+  .event-item{display:flex;justify-content:space-between;align-items:center;padding:9px 4px;border-bottom:1px solid #f0f0f0;font-size:14px}
+  .event-item:last-child{border-bottom:none}
+  .event-name{font-weight:500}
+  .event-date{color:#888;font-size:12px;white-space:nowrap;margin-left:8px}
+  .badge{display:inline-block;padding:1px 7px;border-radius:10px;font-size:11px;margin-left:6px}
+  .badge-s{background:#e8f5e9;color:#2d8a30}
+  .badge-n{background:#e3f2fd;color:#1565c0}
+  .step{display:flex;align-items:flex-start;margin-bottom:10px;font-size:13px;color:#444;line-height:1.6}
+  .step-num{width:22px;height:22px;background:#4caf50;color:#fff;border-radius:50%;text-align:center;line-height:22px;font-size:12px;font-weight:700;margin-right:10px;flex-shrink:0;margin-top:1px}
+  .footer{text-align:center;font-size:11px;color:#bbb;margin-top:20px}
+  .toast{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%) scale(.8);background:rgba(0,0,0,.78);color:#fff;padding:16px 24px;border-radius:12px;font-size:15px;text-align:center;opacity:0;pointer-events:none;transition:all .25s;z-index:99}
+  .toast.show{opacity:1;transform:translate(-50%,-50%) scale(1)}
+  .hidden{display:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>🌿 24节气养生食谱</h1>
+    <p>一年一味，顺时而食 · 含南方膳 & 北方膳</p>
+  </header>
+
+  <div class="hero">
+    <div class="icon">📅</div>
+    <h2>一键导入到手机日历</h2>
+    <p>点击下方按钮，系统会自动识别并弹出「添加到日历」的确认框。导入后每个节气当天都能在日历里看到专属养生食谱。</p>
+    <a class="btn btn-primary" id="btnImport" href="solarterms_recipe.ics">📲 一键导入到日历</a>
+    <div class="device-tip" id="deviceTip"></div>
+  </div>
+
+  <div class="section" id="altSection">
+    <h3>没弹窗？点这里</h3>
+    <p style="font-size:13px;color:#666;margin-bottom:10px">如果上方按钮没反应，试试下面的方式：</p>
+    <a class="btn btn-tel" id="btnTel" href="#">📥 长按或另存为 .ics 文件</a>
+    <a class="btn btn-sub" id="btnCopy">🔗 复制订阅链接（高级用户）</a>
+  </div>
+
+  <div class="section">
+    <h3>📖 节气食谱一览</h3>
+    <div id="eventList"></div>
+  </div>
+
+  <div class="section">
+    <h3>❓ 怎么用</h3>
+    <div class="step"><span class="step-num">1</span><span><b>iPhone 用户</b>：点上方「一键导入」按钮 → 系统弹出提示 → 选「添加全部」→ 完成。</span></div>
+    <div class="step"><span class="step-num">2</span><span><b>安卓用户</b>：点按钮后会下载 .ics 文件 → 用「Google 日历」或系统日历打开即可导入。</span></div>
+    <div class="step"><span class="step-num">3</span><span><b>导入后</b>：打开手机日历 App，勾选「24节气养生食谱」这个日历，就能看到每个节气的食谱啦。</span></div>
+    <div class="step"><span class="step-num">4</span><span><b>每年更新</b>：我（制作者）每年更新一次文件，你这边日历会自动同步新一年的日期。</span></div>
+  </div>
+
+  <div class="footer">本日历仅含食谱文字信息，无任何跟踪、无广告、无第三方脚本 · 可放心分享给家人</div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ===== 设备检测 =====
+var ua=navigator.userAgent||"";
+var isiOS=/(iPhone|iPad|iPod)/i.test(ua);
+var isAndroid=/Android/i.test(ua);
+var tip=document.getElementById("deviceTip");
+if(isiOS){tip.innerHTML="检测到 iPhone/iPad · 点击按钮将直接弹出系统日历";document.getElementById("btnImport").innerHTML="🍎 一键导入到 iPhone 日历"}
+else if(isAndroid){tip.innerHTML="检测到安卓手机 · 点击将下载文件并用日历 App 打开";document.getElementById("btnImport").innerHTML="🤖 下载并导入到安卓日历"}
+else{tip.innerHTML="请使用手机浏览器打开本页以获得最佳体验"}
+
+// ===== 渲染事件列表 =====
+var events=[{"name": "小寒", "region": "南方膳", "date": "2028-01-06", "theme": "补益肾膳食", "desc": "【南方膳】\n补益肾膳食\n【君+臣】煲仔饭\n【臣】爆炒生肠\n【佐】青橄榄石斛（汤）\n【使】咸蛋黄炒瓜蛋"}, {"name": "小寒", "region": "北方膳", "date": "2028-01-06", "theme": "补益肾膳食", "desc": "【北方膳】\n补益肾膳食\n【君】萝卜丝饼\n【臣】红烧甲鱼、豆腐盒子\n【佐】瓜蔬甜点\n【使】豆豉茄干"}, {"name": "大寒", "region": "南方膳", "date": "2028-01-20", "theme": "补益肝膳食", "desc": "【南方膳】\n补益肝膳食\n【君】八宝饭\n【臣】花胶鸡、清炖狮子头\n【佐】酸豆角炒土豆丁\n【使】清汤娃娃菜"}, {"name": "大寒", "region": "北方膳", "date": "2028-01-20", "theme": "补益肝膳食", "desc": "【北方膳】\n补益肝膳食\n【君+臣】烧麦\n【臣】四喜丸子\n【佐】酸菜粉\n【使】木瓜雪蛤"}, {"name": "立春", "region": "南方膳", "date": "2027-02-04", "theme": "补益肝膳食", "desc": "【南方膳】\n补益肝膳食\n【君】炒面（绿豆芽、韭菜、五花肉、香菇、大葱、姜、料酒、香醋、盐、糖、生抽）\n【臣】蒜蓉茼蒿\n【佐】甜辣小脆瓜\n【使】酸辣汤"}, {"name": "立春", "region": "北方膳", "date": "2027-02-04", "theme": "补益肝膳食", "desc": "【北方膳】\n补益肝膳食\n【君】烙春饼\n【臣】炒豆芽、炒土豆丝\n【佐】摊鸡蛋\n【使】炸酱（东北黄豆酱；葱花、黄酒、通脊肉、芝麻油）"}, {"name": "雨水", "region": "南方膳", "date": "2027-02-19", "theme": "补益肝膳食", "desc": "【南方膳】\n补益肝膳食\n【君】葱油拌面\n【臣】鹿蹄筋、油焖春笋\n【佐】酸菜粉丝\n【使】红豆沙"}, {"name": "雨水", "region": "北方膳", "date": "2027-02-19", "theme": "补益肝膳食", "desc": "【北方膳】\n补益肝膳食\n【君】摊鸡蛋饼\n【臣】韭黄炒肉、干煸黄豆芽\n【佐】醋溜白菜\n【使】银耳羹"}, {"name": "惊蛰", "region": "南方膳", "date": "2027-03-06", "theme": "补益脾胃", "desc": "【南方膳】\n补益脾胃\n【君】包子\n【臣】凉拌春笋、炒豆苗\n【佐】蒸梨\n【使】棒碴粥"}, {"name": "惊蛰", "region": "北方膳", "date": "2027-03-06", "theme": "补益脾胃", "desc": "【北方膳】\n补益脾胃\n【君】烙饼\n【臣】溜肝尖\n【佐】炒合菜\n【使】黄酒梨\n【使】小米粥"}, {"name": "春分", "region": "南方膳", "date": "2027-03-21", "theme": "补肺膳食", "desc": "【南方膳】\n补肺膳食\n【君】油酥饼\n【臣】腌笃鲜、蒜茸青菜\n【佐】老醋花生\n【使】绿豆沙"}, {"name": "春分", "region": "北方膳", "date": "2027-03-21", "theme": "补肺膳食", "desc": "【北方膳】\n补肺膳食\n【君】水煎荠菜猪肉包\n【臣】香椿鸡蛋、天妇罗花椒芽\n【佐】泡菜（圆白菜、胡萝卜、白萝卜、青椒、芹菜、黄瓜；泡椒、小米辣、姜、蒜、花椒、米醋、白酒、白糖、盐）\n【使】冰糖马蹄"}, {"name": "清明", "region": "南方膳", "date": "2027-04-05", "theme": "补肺膳食", "desc": "【南方膳】\n补肺膳食\n【君】荞麦面 (羊肉、土豆、香菇、黄花菜；花生油、花椒、葱、姜、生抽、糖、盐、胡椒粉、八角)\n【臣】爆炒螺蛳、蒜蓉芥兰\n【佐+使】青团"}, {"name": "清明", "region": "北方膳", "date": "2027-04-05", "theme": "补肺膳食", "desc": "【北方膳】\n补肺膳食\n【君】莜面（蘸料：羊肉臊子、酸泡菜烂腌菜）\n【臣】葱爆羊肉（芫爆羊肉）、蒸榆钱\n【佐】醋泡苤蓝\n【使】小米稀粥"}, {"name": "谷雨", "region": "南方膳", "date": "2027-04-20", "theme": "补益心气心血", "desc": "【南方膳】\n补益心气心血\n【君】秫米饭 (红高粱米、大米)\n【臣】蚵仔煎、蒜茸芦笋\n【佐】凉拌马齿苋 (菜籽油/花生油、花椒、香醋、生抽、盐)\n【使】醋溜土豆丝"}, {"name": "谷雨", "region": "北方膳", "date": "2027-04-20", "theme": "补益心气心血", "desc": "【北方膳】\n补益心气心血\n【君】黄米糕\n【臣】小鸡炖蘑菇、薤白炒鸡蛋\n【佐】凉拌苦菜\n【使】酸辣汤"}, {"name": "立夏", "region": "南方膳", "date": "2027-05-06", "theme": "补益心气心血", "desc": "【南方膳】\n补益心气心血\n【君】咸菜炒年糕\n【臣】爆炒蛤蜊、紫菜蛋花汤\n【佐】凉拌蒲公英\n【使】蒸槐花"}, {"name": "立夏", "region": "北方膳", "date": "2027-05-06", "theme": "补益心气心血", "desc": "【北方膳】\n补益心气心血\n【君】面条\n【臣】黄酱+甜面酱（炸酱）、大蒜（新蒜）\n【佐】菜码（水萝卜丝、黄瓜丝、葱丝、香菜叶；熟：绿豆芽、黄豆芽、芹菜丝、青豆）\n【使】醋（陈醋、米醋）"}, {"name": "小满", "region": "南方膳", "date": "2027-05-21", "theme": "补益心气心血", "desc": "【南方膳】\n补益心气心血\n【君】红白糯米饭（菠萝蒸饭）\n【臣】隔水蒸鸡、西芹百合\n【佐】豆豉炒苦瓜\n【使】菠萝"}, {"name": "小满", "region": "北方膳", "date": "2027-05-21", "theme": "补益心气心血", "desc": "【北方膳】\n补益心气心血\n【君】高粱米饭\n【臣】清炖鸡、木樨肉\n【佐】饭焦锅巴\n【使】酒酿黄瓜/酸黄瓜条"}, {"name": "芒种", "region": "南方膳", "date": "2027-06-06", "theme": "补益心气心血", "desc": "【南方膳】\n补益心气心血\n【君】肉粽子（米多肉少）\n【臣】清蒸海鱼、鸡油鸡毛菜\n【佐】蒜茸冰菜\n【使】凉拌西红柿"}, {"name": "芒种", "region": "北方膳", "date": "2027-06-06", "theme": "补益心气心血", "desc": "【北方膳】\n补益心气心血\n【君】黄米粽 凉糕\n【臣】酱爆鸡丁、海米昆布冬瓜汤\n【佐】紫背天葵（观音菜，蒜茸或麻酱凉拌）\n【使】桑葚酱"}, {"name": "夏至", "region": "南方膳", "date": "2027-06-21", "theme": "补益心气心血", "desc": "【南方膳】\n补益心气心血\n【君】潮汕海鲜粥\n【臣】凉拌鲜萱草花\n【佐】蒜茸救心菜\n【使】糖醋藠头"}, {"name": "夏至", "region": "北方膳", "date": "2027-06-21", "theme": "补益心气心血", "desc": "【北方膳】\n补益心气心血\n【君】榨菜肉丝面\n【臣】宫保鸡丁、咸蛋黄炒南瓜（咸蛋黄焗南瓜）\n【佐】蒜泥茄子\n【使】酸梅汤"}, {"name": "小暑", "region": "南方膳", "date": "2027-07-07", "theme": "补益脾胃", "desc": "【南方膳】\n补益脾胃\n【君】三虾面\n【臣】清蒸鲈鱼、芙蓉茭白\n【佐】虎皮尖椒\n【使】香糟毛豆"}, {"name": "小暑", "region": "北方膳", "date": "2027-07-07", "theme": "补益脾胃", "desc": "【北方膳】\n补益脾胃\n【君】小米干饭\n【臣】水煮牛肉、清炒丝瓜\n【佐】荆芥拌洋葱\n【使】锅塌豆腐（卤水豆腐）"}, {"name": "大暑", "region": "南方膳", "date": "2027-07-23", "theme": "补益脾胃", "desc": "【南方膳】\n补益脾胃\n【君】捞米饭\n【臣】干烧鱼、酿馅冬瓜\n【佐】小炒肉\n【使】清炒莴笋"}, {"name": "大暑", "region": "北方膳", "date": "2027-07-23", "theme": "补益脾胃", "desc": "【北方膳】\n补益脾胃\n【君】小米发糕\n【臣】红烧带鱼、清炒西葫芦(或西葫芦熬羊肉)\n【佐】姜丝炒肉\n【使】小葱拌豆腐"}, {"name": "立秋", "region": "南方膳", "date": "2027-08-08", "theme": "补益脾胃", "desc": "【南方膳】\n补益脾胃\n【君】三虾面\n【臣】清蒸鲈鱼、芙蓉茭白\n【佐】虎皮尖椒\n【使】香糟毛豆"}, {"name": "立秋", "region": "北方膳", "date": "2027-08-08", "theme": "补益脾胃", "desc": "【北方膳】\n补益脾胃\n【君】小米干饭\n【臣】水煮牛肉、清炒丝瓜\n【佐】荆芥拌洋葱\n【使】锅塌豆腐（卤水豆腐）"}, {"name": "处暑", "region": "南方膳", "date": "2027-08-23", "theme": "补益脾胃", "desc": "【南方膳】\n补益脾胃\n【君】二米饭(小米、大米)\n【臣】剁椒鱼头、桂花蜜汁藕\n【佐】干煸豆角\n【使】清炒芥兰"}, {"name": "处暑", "region": "北方膳", "date": "2027-08-23", "theme": "补益脾胃", "desc": "【北方膳】\n补益脾胃\n【君】摊黄儿\n【臣】小罐煨牛肉、香酥鲫鱼\n【佐】老虎菜\n【使】豆角茄子煲"}, {"name": "白露", "region": "南方膳", "date": "2027-09-08", "theme": "补肺膳食", "desc": "【南方膳】\n补肺膳食\n【君】扬州炒饭\n【臣】酸汤肥牛、粉蒸肉\n【佐】凉拌折耳根\n【使】香辣芹菜"}, {"name": "白露", "region": "北方膳", "date": "2027-09-08", "theme": "补肺膳食", "desc": "【北方膳】\n补肺膳食\n【君】大米饭\n【臣】啤酒鸭、酸菜鱼\n【佐】酱油土豆丝\n【使】尖椒豆皮"}, {"name": "秋分", "region": "南方膳", "date": "2027-09-23", "theme": "补肺膳食", "desc": "【南方膳】\n补肺膳食\n【君】过桥米线\n【臣】西湖醋鱼、咕咾肉\n【佐】雪菜豆腐\n【使】炝拌萝卜皮"}, {"name": "秋分", "region": "北方膳", "date": "2027-09-23", "theme": "补肺膳食", "desc": "【北方膳】\n补肺膳食\n【君】浆水面\n【臣】铁锅炖大鹅、醋溜木樨\n【佐】酱爆茄子\n【使】尖椒土豆丝"}, {"name": "寒露", "region": "南方膳", "date": "2027-10-08", "theme": "补肺膳食", "desc": "【南方膳】\n补肺膳食\n【君】蕈油面\n【臣】橄榄煲肺头（橄榄猪肺汤）、西红柿炒鸡蛋\n【佐】咸水鸭\n【使】香辣萝卜条"}, {"name": "寒露", "region": "北方膳", "date": "2027-10-08", "theme": "补肺膳食", "desc": "【北方膳】\n补肺膳食\n【君】酸汤水饺\n【臣】尖椒肥肠、蓝莓山药\n【佐】砂锅焗百合\n【使】凉拌辣桔梗（不会做可去朝鲜风味店铺买现成）"}, {"name": "霜降", "region": "南方膳", "date": "2027-10-23", "theme": "补肺膳食", "desc": "【南方膳】\n补肺膳食\n【君】蒸肠粉\n【臣】姜母鸭、莲藕排骨汤\n【佐】盐焗口蘑\n【使】香辣石花菜"}, {"name": "霜降", "region": "北方膳", "date": "2027-10-23", "theme": "补肺膳食", "desc": "【北方膳】\n补肺膳食\n【君】卤煮火烧\n【臣】酸菜土豆\n【佐】雪里蕻地皮菜\n【使】凉拌沙窝萝卜"}, {"name": "立冬", "region": "南方膳", "date": "2027-11-07", "theme": "补益肾膳食", "desc": "【南方膳】\n补益肾膳食\n【君】红豆焖米饭\n【臣】芋头烧肉、小白菜烧豆腐\n【佐】醪糟蛋花汤\n【使】虾仁冬瓜"}, {"name": "立冬", "region": "北方膳", "date": "2027-11-07", "theme": "补益肾膳食", "desc": "【北方膳】\n补益肾膳食\n【君】抿豆面\n【臣】红烧肉（猪肉）、素烧(葱烧)台蘑\n【佐】拔丝红薯\n【使】凉拌海带"}, {"name": "小雪", "region": "南方膳", "date": "2027-11-22", "theme": "补益肾膳食", "desc": "【南方膳】\n补益肾膳食\n【君】卤肉饭\n【臣】油焖腐竹、清炒盖菜\n【佐】芡实龙眼汤\n【使】炸薯条"}, {"name": "小雪", "region": "北方膳", "date": "2027-11-22", "theme": "补益肾膳食", "desc": "【北方膳】\n补益肾膳食\n【君】粘豆包\n【臣】酱棒骨、麻婆豆腐\n【佐】白菜烧板栗\n【使】海带萝卜汤"}, {"name": "大雪", "region": "南方膳", "date": "2027-12-07", "theme": "补益肾膳食", "desc": "【南方膳】\n补益肾膳食\n【君】大米锅巴\n【臣】梅菜扣肉、冬笋塔菜\n【佐】清炒三丝\n【使】海鲜浇头"}, {"name": "大雪", "region": "北方膳", "date": "2027-12-07", "theme": "补益肾膳食", "desc": "【北方膳】\n补益肾膳食\n【君】豆面剔尖\n【臣】红焖腔骨、素烧二冬\n【佐】白菜粉丝汤\n【使】雪菜豆腐"}, {"name": "冬至", "region": "南方膳", "date": "2027-12-22", "theme": "补益肾膳食", "desc": "【南方膳】\n补益肾膳食\n【君】腊八粥\n【臣】豉蒸鳗鱼、大煮干丝\n【佐】榲桲南荠\n【使】橄榄菜炝拌时蔬"}, {"name": "冬至", "region": "北方膳", "date": "2027-12-22", "theme": "补益肾膳食", "desc": "【北方膳】\n补益肾膳食\n【君】鲜肉馄饨\n【臣】葱烧海参、红烧肉焖干豆角\n【佐】松仁玉米\n【使】酱汤萝卜"}, {"name": "中伏", "region": "南方膳", "date": "2027-07-27", "theme": "长夏初期：补益脾胃（中伏）", "desc": "【南方膳】\n长夏初期：补益脾胃（中伏）\n【君+臣】鳝鱼面\n【臣】咖喱牛肉、凉拌西瓜翠衣\n【佐】香辣藕带\n【使】香干炒芹菜"}, {"name": "中伏", "region": "北方膳", "date": "2027-07-27", "theme": "长夏初期：补益脾胃（中伏）", "desc": "【北方膳】\n长夏初期：补益脾胃（中伏）\n【君+臣】玉米贴饼子+熬小鱼儿\n【臣】清炒包菜\n【佐】芥末墩\n【使】豆腐泡儿（炸豆腐泡）"}];
+var list=document.getElementById("eventList");
+events.forEach(function(ev){
+  var item=document.createElement("div");item.className="event-item";
+  var badge=ev.region==="南方膳"?'<span class="badge badge-s">南</span>':'<span class="badge badge-n">北</span>';
+  item.innerHTML='<span class="event-name">'+ev.name+'·'+ev.region+badge+'</span>'+'<span class="event-date">'+ev.date+'</span>';
+  list.appendChild(item);
+});
+
+// ===== 按钮交互 =====
+var toast=document.getElementById("toast");
+function showToast(msg){toast.innerHTML=msg;toast.classList.add("show");setTimeout(function(){toast.classList.remove("show")},2500)}
+
+// 一键导入按钮：iOS 上直接走 .ics；安卓/桌面给出提示
+document.getElementById("btnImport").addEventListener("click",function(e){
+  if(isiOS){
+    // iOS Safari 对 .ics 的直链会尝试调起日历
+    return; // 让 a 标签正常跳转
+  }
+  // 安卓/桌面：触发下载
+  e.preventDefault();
+  var a=document.createElement("a");
+  a.href="solarterms_recipe.ics";a.download="24节气养生食谱.ics";
+  document.body.appendChild(a);a.click();document.body.removeChild(a);
+  if(isAndroid) showToast("文件已下载<br>请用「Google 日历」打开");
+  else showToast("文件已下载<br>请双击用日历 App 导入");
+});
+
+// 备用：data URI 方式（兼容性更强）
+document.getElementById("btnTel").addEventListener("click",function(e){
+  e.preventDefault();
+  showToast("正在准备文件…");
+  fetch("solarterms_recipe.ics").then(function(r){return r.blob()}).then(function(blob){
+    var url=URL.createObjectURL(blob);
+    var a=document.createElement("a");a.href=url;a.download="24节气养生食谱.ics";
+    document.body.appendChild(a);a.click();document.body.removeChild(a);
+    setTimeout(function(){URL.revokeObjectURL(url)},3000);
+    showToast("✅ 文件已准备好<br>请到下载目录用日历打开");
+  }).catch(function(){showToast("❌ 读取失败<br>请检查网络")});
+});
+
+// 复制链接
+document.getElementById("btnCopy").addEventListener("click",function(){
+  var url=location.href.replace("index.html","")+"solarterms_recipe.ics";
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(url).then(function(){showToast("✅ 链接已复制<br>可粘贴到备忘录")});}
+  else{showToast("链接：<br>"+url);}
+});
+</script>
+</body>
+</html>
